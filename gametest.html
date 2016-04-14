@@ -1,10 +1,49 @@
+<!DOCTYPE html>
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="styletest.css">
-    Test Game
   </head>
   <body>
+     
     <h1>hello world again</h1>
-    how are things.
+    how are things.<br>
+    This is a box<br>
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>
+    <br>this is a box with some green in it<br>
+    <canvas id="myCanvas2" width="200" height="100" style="border:1px solid #000000;"></canvas> 
+    <br>
+    <canvas id="SpaceInvaders" width="600" height="600" style="border:1px solid #000000;"></canvas> 
+    <script>
+      var c = document.getElementById("myCanvas2");
+      var ctx = c.getContext("2d");
+      ctx.fillStyle = "#00AA00";
+      ctx.fillRect(0,0,150,75);
+      
+      var player1;
+      player1 = new component(30, 30, "green", 10, 120);    
+      var c1 = document.createElement("SpaceInvaders"),
+      var ctx1 = c1.canvas.getContext("2d");
+      ctx1.fillRect(0,0,600,600);
+      ctx1.fillStyle = "#000000";
+          
+       ctx1.interval = setInterval(updateGameArea, 20);
+      
+      function component(width, height, color, x, y) {
+        this.width = width;
+        this.height = height;
+        this.x = x;
+        this.y = y;    
+        this.update = function(){
+          ctx1 = ctx1.context;
+          ctx1.fillStyle = color;
+          ctx1.fillRect(this.x, this.y, this.width, this.height);
+        }
+      }
+
+      function updateGameArea() {
+        player1.x += 1;
+        player1.update();
+      }
+    </script>
   </body>
 </html>
