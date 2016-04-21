@@ -16,9 +16,10 @@
       window.addEventListener('keydown',this.InputPressed,false);
       var player;
       var alian;
+      var bullet1, bullet2, bullet3;
       var alianDirection=true;
       player = new component(30, 30, "green", 10, 550); 
-      alian = new component(30, 30, "red", 10, 100);     
+      alian = new component(30, 30, "red", 10, 100);
       var c = document.getElementById("SpaceInvaders");
       var ctx = c.getContext("2d");
       ctx.fillStyle = "#000000";
@@ -36,15 +37,16 @@
           ctx.fillRect(this.x, this.y, this.width, this.height);
         }
       }
-
       function updateGameArea() {
         ctx.fillStyle = "#000000";
         ctx.fillRect(0,0,600,600);
         ctx.fillRect(this.x, this.y, this.width, this.height);
+        //player move
         if (player.x>=560)
           player.x=560
         if (player.x<=10)
           player.x=10
+        //alian move
         if (alian.x>=560){
           alianDirection=false;
           alian.y+=10;
@@ -57,6 +59,28 @@
           alian.x += 2;
         else
           alian.x-=2;
+        //shooting
+        if(bullet1!=null){
+          bullet1.y -= 20;
+          if(bullet1.y<=0){
+            bullet1=null;
+          }
+          else bullet1.update();
+        }
+        if(bullet2!=null){
+          bullet2.y -= 20;
+          if(bullet2.y<=0){
+            bullet2=null;
+          }
+          else bullet2.update();
+        }
+        if(bullet3!=null){
+          bullet3.y -= 20;
+          if(bullet3.y<=0){
+            bullet3=null;
+          }
+          else bullet3.update();
+        }
         player.update();
         alian.update();
       }
@@ -64,8 +88,17 @@
       var code = e.keyCode;
       switch (code) {
         case 68: player.x+=2; break; //Right key
-        case 65: player.x-=2; break; //Down key
-        case 32: alert("shoot"); break; //shoot key
+        case 65: player.x-=2; break; //Left key
+        case 39: player.x+=2; break; //Right key
+        case 37: player.x-=2; break; //Left key
+        case 32: 
+        if(bullet1==null)
+          bullet1 = new component( 5, 30, "Blue", player.x+12, player.y); //shoot key
+        else if(bullet2==null)
+          bullet2 = new component( 5, 30, "Blue", player.x+12, player.y);
+       else if(bullet3==null)
+          bullet3 = new component( 5, 30, "Blue", player.x+12, player.y);
+        break;
         default: alert(code); //Everything else
     }
 }
