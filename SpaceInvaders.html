@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styletest.css">
+    <h1>
+      Welcome to SpaceInvaders.html
+    </h1>
+    <h2>
+      <br>keys "a,d,space"<br><br>
+    </h2>
+  </head>
+  <body>
+    <canvas id="SpaceInvaders" width="600" height="600" style="border:1px solid #000000;"></canvas>
+  </body>
+  <script>
+      window.addEventListener('keydown',this.InputPressed,false);
+      var player;
+      var alian;
+      var alianDirection=true;
+      player = new component(30, 30, "green", 10, 550); 
+      alian = new component(30, 30, "red", 10, 100);     
+      var c = document.getElementById("SpaceInvaders");
+      var ctx = c.getContext("2d");
+      ctx.fillStyle = "#000000";
+      ctx.fillRect(0,0,600,600);
+          
+       ctx.interval = setInterval(updateGameArea, 60);
+      //need to get pictures to replace and dimentions color
+      function component(width, height, color, x, y) {
+        this.width = width;
+        this.height = height;
+        this.x = x;
+        this.y = y;
+        this.update = function(){
+          ctx.fillStyle = color;
+          ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+      }
+
+      function updateGameArea() {
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0,0,600,600);
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+        if (player.x>=560)
+          player.x=560
+        if (player.x<=10)
+          player.x=10
+        if (alian.x>=560){
+          alianDirection=false;
+          alian.y+=10;
+        }
+        if (alian.x<=10){
+          alianDirection=true;
+          alian.y+=10;
+        }
+        if(alianDirection)
+          alian.x += 2;
+        else
+          alian.x-=2;
+        player.update();
+        alian.update();
+      }
+      function InputPressed(e) {
+      var code = e.keyCode;
+      switch (code) {
+        case 68: player.x+=2; break; //Right key
+        case 65: player.x-=2; break; //Down key
+        case 32: alert("shoot"); break; //shoot key
+        default: alert(code); //Everything else
+    }
+}
+  </script>
+</html>

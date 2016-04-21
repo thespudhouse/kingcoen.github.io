@@ -11,8 +11,8 @@
     <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>
     <br>this is a box with some green in it<br>
     <canvas id="myCanvas2" width="200" height="100" style="border:1px solid #000000;"></canvas> 
-    <br>here is a black box with a green squear moving in side<br>
-    <canvas id="SpaceInvaders" width="600" height="600" style="border:1px solid #000000;"></canvas> 
+    <br>here is a black box with a green square moving in side<br>
+    <canvas id="TheCanvas" width="600" height="600" style="border:1px solid #000000;"></canvas> 
     <script>
       var c = document.getElementById("myCanvas2");
       var ctx = c.getContext("2d");
@@ -22,7 +22,7 @@
       var player1;
       var playerdirection=true;
       player1 = new component(30, 30, "green", 10, 120);    
-      var c1 = document.getElementById("SpaceInvaders");
+      var c1 = document.getElementById("TheCanvas");
       var ctx1 = c1.getContext("2d");
       ctx1.fillStyle = "#000000";
       ctx1.fillRect(0,0,600,600);
