@@ -18,24 +18,24 @@
       var side=00;
       var higth=0;
       var aliens = [];  
+      var isalive = []; 
       var numberOfAliens=40;
       var bullet1, bullet2, bullet3;
       var aliensDirection=true;
-      player = new component(30, 30, "green", 10, 550); 
-      for (i = 0; i < numberOfAliens; i++) { 
-        
+      player = new component(30, 30, "green", 285, 550); 
+      for (i = 0; i < numberOfAliens; i++) {
         if (side % 8 === 0) {
           side = 00;
           higth += 40
         }
         aliens[i] = new component(30, 30, "red", side*40+10, higth);
+        isalive[i] = true;
         side++;
       }
       var c = document.getElementById("SpaceInvaders");
       var ctx = c.getContext("2d");
       ctx.fillStyle = "#000000";
       ctx.fillRect(0,0,600,600);
-          
        ctx.interval = setInterval(updateGameArea, 60);
       //need to get pictures to replace and dimentions color
       function component(width, height, color, x, y) {
@@ -96,9 +96,31 @@
           }
           else bullet3.update();
         }
+        for (a = 0; a < numberOfAliens; a++){   
+            if(bullet1!=null&&isalive[a]==true){
+              if(bullet1.x >= (aliens[a].x ) && bullet1.x <= (aliens[a].x + 30) && bullet1.y >= (aliens[a].y ) && bullet1.y <= (aliens[a].y + 30)) {
+                isalive[a]=false;
+                bullet1=null;
+              }
+            }
+          if(bullet2!=null&&isalive[a]==true){
+              if(bullet2.x >= (aliens[a].x ) && bullet2.x <= (aliens[a].x + 30) && bullet2.y >= (aliens[a].y ) && bullet2.y <= (aliens[a].y + 30)) {
+                isalive[a]=false;
+                bullet2=null;
+              }
+            }
+          
+            if(bullet3!=null&&isalive[a]==true){
+              if(bullet3.x >= (aliens[a].x ) && bullet3.x <= (aliens[a].x + 30) && bullet3.y >= (aliens[a].y ) && bullet3.y <= (aliens[a].y + 30)) {
+                isalive[a]=false;
+                bullet3=null;
+              }
+            }
+        }
         player.update();
         for(i = 0; i < numberOfAliens; i++) {
-          aliens[i].update();
+          if(isalive[i]==true)
+            aliens[i].update();
         }
       }
       function InputPressed(e) {
