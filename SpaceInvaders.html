@@ -15,11 +15,22 @@
   <script>
       window.addEventListener('keydown',this.InputPressed,false);
       var player;
-      var alian;
+      var side=00;
+      var higth=0;
+      var aliens = [];  
+      var numberOfAliens=40;
       var bullet1, bullet2, bullet3;
-      var alianDirection=true;
+      var aliensDirection=true;
       player = new component(30, 30, "green", 10, 550); 
-      alian = new component(30, 30, "red", 10, 100);
+      for (i = 0; i < numberOfAliens; i++) { 
+        
+        if (side % 8 === 0) {
+          side = 00;
+          higth += 40
+        }
+        aliens[i] = new component(30, 30, "red", side*40+10, higth);
+        side++;
+      }
       var c = document.getElementById("SpaceInvaders");
       var ctx = c.getContext("2d");
       ctx.fillStyle = "#000000";
@@ -46,19 +57,23 @@
           player.x=560
         if (player.x<=10)
           player.x=10
-        //alian move
-        if (alian.x>=560){
-          alianDirection=false;
-          alian.y+=10;
+        //aliens move
+        for(i = 0; i < numberOfAliens; i++) {
+          if (aliens[i].x>=560){
+            aliensDirection=false;
+            for(j = 0; j < numberOfAliens; j++){
+              aliens[j].y+=10;}
+          }
+          if (aliens[i].x<=10){
+            aliensDirection=true;
+            for(j = 0; j < numberOfAliens; j++){
+              aliens[j].y+=10;}
+          }
+          if(aliensDirection)
+            aliens[i].x += 2;
+          else
+            aliens[i].x-=2;
         }
-        if (alian.x<=10){
-          alianDirection=true;
-          alian.y+=10;
-        }
-        if(alianDirection)
-          alian.x += 2;
-        else
-          alian.x-=2;
         //shooting
         if(bullet1!=null){
           bullet1.y -= 20;
@@ -82,7 +97,9 @@
           else bullet3.update();
         }
         player.update();
-        alian.update();
+        for(i = 0; i < numberOfAliens; i++) {
+          aliens[i].update();
+        }
       }
       function InputPressed(e) {
       var code = e.keyCode;
