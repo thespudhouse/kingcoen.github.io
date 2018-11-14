@@ -44,7 +44,6 @@ function updateGameArea() {
   if (player.x<=10)
     player.x=10
   //aliens move
-  //make this it's own function.
   for(i = 0; i < numberOfAliens; i++) {
     if(aliensDirection)
       aliens[i].x += alienSpeed;
@@ -52,6 +51,7 @@ function updateGameArea() {
       aliens[i].x -= alienSpeed;
   }
   
+  //make this it's own function.
   for(i = 0; i < numberOfAliens; i++) {
     if (aliens[i].x>=560){
       if (aliens[i].isalive ==true){
@@ -69,7 +69,7 @@ function updateGameArea() {
       }
     }
   }
-  //shooting
+  //shooting make this a function
   if(bullet1!=null){
     bullet1.y -= 20;
     if(bullet1.y<=0){
@@ -91,29 +91,31 @@ function updateGameArea() {
     }
     else bullet3.update();
   }
-  for (a = 0; a < numberOfAliens; a++){   
-      if(bullet1!=null&&aliens[a].isalive==true){
-        if(bullet1.x >= (aliens[a].x ) && bullet1.x <= (aliens[a].x + 30) && bullet1.y >= (aliens[a].y ) && bullet1.y <= (aliens[a].y + 30)) {
-          aliens[a].isalive=false;
-          alienSpeed+=0.3;
-          bullet1=null;
-        }
+  
+  for (a = 0; a < numberOfAliens; a++){  
+    //make this a function 
+    if(bullet1!=null&&aliens[a].isalive==true){
+      if(bullet1.x >= (aliens[a].x ) && bullet1.x <= (aliens[a].x + 30) && bullet1.y >= (aliens[a].y ) && bullet1.y <= (aliens[a].y + 30)) {
+        aliens[a].isalive=false;
+        alienSpeed+=0.3;
+        bullet1=null;
       }
+    }
     if(bullet2!=null&&aliens[a].isalive==true){
-        if(bullet2.x >= (aliens[a].x ) && bullet2.x <= (aliens[a].x + 30) && bullet2.y >= (aliens[a].y ) && bullet2.y <= (aliens[a].y + 30)) {
-          aliens[a].isalive=false;
-          alienSpeed+=0.3;
-          bullet2=null;
-        }
+      if(bullet2.x >= (aliens[a].x ) && bullet2.x <= (aliens[a].x + 30) && bullet2.y >= (aliens[a].y ) && bullet2.y <= (aliens[a].y + 30)) {
+        aliens[a].isalive=false;
+        alienSpeed+=0.3;
+        bullet2=null;
       }
-    
-      if(bullet3!=null&&aliens[a].isalive==true){
-        if(bullet3.x >= (aliens[a].x ) && bullet3.x <= (aliens[a].x + 30) && bullet3.y >= (aliens[a].y ) && bullet3.y <= (aliens[a].y + 30)) {
-          aliens[a].isalive=false;
-          alienSpeed+=0.3;
-          bullet3=null;
-        }
+    }
+  
+    if(bullet3!=null&&aliens[a].isalive==true){
+      if(bullet3.x >= (aliens[a].x ) && bullet3.x <= (aliens[a].x + 30) && bullet3.y >= (aliens[a].y ) && bullet3.y <= (aliens[a].y + 30)) {
+        aliens[a].isalive=false;
+        alienSpeed+=0.3;
+        bullet3=null;
       }
+    }
   }
   player.update();
   for(i = 0; i < numberOfAliens; i++) {
