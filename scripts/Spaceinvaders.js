@@ -136,6 +136,6 @@ switch (code) {
  else if(bullet3==null)
     bullet3 = new component( 5, 30, "Blue", player.x+12, player.y);
   break;
-  default: alert(code); //Everything else
+  default: ; //Everything else
     }
 }
